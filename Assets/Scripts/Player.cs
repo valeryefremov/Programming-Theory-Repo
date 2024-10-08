@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField] float speed = 10.0f; // Скорость перемещения
-
-    private Rigidbody rb;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
 
     // Update is called once per frame
     void Update()
@@ -26,6 +17,7 @@ public class Player : Character
     void FixedUpdate()
     {
         Move();
+        Shoot();
     }
 
     protected override void Death()
@@ -39,10 +31,16 @@ public class Player : Character
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        // Создание вектора силы
-        Vector3 force = new Vector3(moveHorizontal, 0.0f, moveVertical) * 10f;
+        Vector3 direction = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        // Применение силы к Rigidbody
-        rb.AddForce(force);
+        rb.AddForce(direction * speed);
+    }
+
+    protected override void Shoot()
+    {
+        if (Input.GetKey(KeyCode.Space) && gun)
+        {
+            gun.Shoot();
+        }
     }
 }

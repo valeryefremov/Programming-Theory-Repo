@@ -1,17 +1,20 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] float health;
+    [SerializeField] private float health;
+    [SerializeField] protected float speed = 1.0f; // Скорость перемещения
+    [SerializeField] protected Gun gun;
 
     private bool isDied;
+    protected Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -59,5 +62,19 @@ public class Character : MonoBehaviour
     protected virtual void Move()
     {
 
+    }
+
+    protected virtual void Shoot()
+    {
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(collision.gameObject);
+            Damage(5f);
+        }
     }
 }
