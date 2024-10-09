@@ -1,26 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
+    [SerializeField] private Image healthBar;
     [SerializeField] protected float speed = 1.0f; // Скорость перемещения
     [SerializeField] protected Gun gun;
 
-    private bool isDied;
+    private float health;
+
     protected Rigidbody rb;
+    protected GameController gameController;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        health = maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
+        if (!gameController.IsGameOver)
+        {
+            Look();
+            Shoot();
+            ShowHealth();
+        }
+    }
 
+    protected virtual void FixedUpdate()
+    {
+        if (!gameController.IsGameOver)
+        {
+            Move();
+        }
     }
 
     public void Damage(float damageAmount)
@@ -37,20 +55,16 @@ public class Character : MonoBehaviour
 
     private void AddHealth(float amount)
     {
-        if (!isDied)
+        if (!gameController.IsGameOver)
         {
             health += amount;
             health = Mathf.Clamp(health, 0f, 100f);
 
             if (health == 0f)
             {
-                isDied = true;
                 Death();
-            }
-        }
-        else
-        {
-            Debug.Log("Character Already Died!");
+                ShowHealth(0);
+            }  
         }
     }
 
@@ -60,6 +74,11 @@ public class Character : MonoBehaviour
     }
 
     protected virtual void Move()
+    {
+
+    }
+
+    protected virtual void Look()
     {
 
     }
@@ -76,5 +95,19 @@ public class Character : MonoBehaviour
             Destroy(collision.gameObject);
             Damage(5f);
         }
+    }
+
+    void ShowHealth()
+    {
+        Vector3 tmp = healthBar.rectTransform.localScale;
+        tmp.x = health / maxHealth;
+        healthBar.rectTransform.localScale = tmp;
+    }
+
+    void ShowHealth(float amount)
+    {
+        Vector3 tmp = healthBar.rectTransform.localScale;
+        tmp.x = amount;
+        healthBar.rectTransform.localScale = tmp;
     }
 }

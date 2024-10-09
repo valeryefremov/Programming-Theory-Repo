@@ -47,7 +47,8 @@ public class Gun : MonoBehaviour
     {
         bulletsAmount--;
         GameObject bullet = Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
-        bullet.GetComponent<Rigidbody>().AddForce(Vector3.forward * bulletForce, ForceMode.Impulse);
+        Vector3 localForward = transform.TransformDirection(Vector3.forward);
+        bullet.GetComponent<Rigidbody>().AddForce(localForward * bulletForce, ForceMode.Impulse);
     }
 
     private void Reload()

@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class Player : Character
 {
+    [SerializeField] float mouseSensitivity = 100.0f; // Sensitivity of the mouse input
+    [SerializeField] Transform cam;
 
-    // Update is called once per frame
-    void Update()
+    protected override void Look()
     {
-        //if (Input.GetKeyDown(KeyCode.LeftControl))
-        //{
-        //    Damage(5f);
-        //}
+        // Получение ввода от пользователя
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+
+        transform.Rotate(Vector3.up * mouseX);
     }
 
-    void FixedUpdate()
+    protected override void Shoot()
     {
-        Move();
-        Shoot();
-    }
-
-    protected override void Death()
-    {
-        Debug.Log("Player Died");
+        if (Input.GetMouseButton(0) && gun)
+        {
+            gun.Shoot();
+        }
     }
 
     protected override void Move()
@@ -36,11 +34,9 @@ public class Player : Character
         rb.AddForce(direction * speed);
     }
 
-    protected override void Shoot()
+    protected override void Death()
     {
-        if (Input.GetKey(KeyCode.Space) && gun)
-        {
-            gun.Shoot();
-        }
+        bool isPlayerWin = false;
+        gameController.GameOver(isPlayerWin);
     }
 }

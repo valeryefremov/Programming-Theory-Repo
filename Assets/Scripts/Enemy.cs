@@ -6,24 +6,31 @@ public class Enemy : Character
 {
     [SerializeField] EnemyWaypoints enemyWaypoints;
 
-    // Update is called once per frame
-    void Update()
+    private Transform player;
+    private float timeToShoot;
+
+    protected override void Start()
     {
-        //if (Input.GetKeyDown(KeyCode.RightControl))
-        //{
-        //    Damage(5f);
-        //}
+        base.Start();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    void FixedUpdate()
+    protected override void Look()
     {
-        Move();
+        transform.LookAt(player);
     }
 
-    protected override void Death()
+    protected override void Shoot()
     {
-        Debug.Log("Enemy Died");
-        Destroy(gameObject);
+        if (timeToShoot <= 0f)
+        {
+            gun.Shoot();
+            timeToShoot = Random.Range(0.2f, 5f);
+        }
+        else
+        {
+            timeToShoot -= Time.deltaTime;
+        }
     }
 
     protected override void Move()
@@ -36,6 +43,13 @@ public class Enemy : Character
         }
 
         rb.AddForce(direction * speed);
+    }
+
+    protected override void Death()
+    {
+        bool isPlayerWin = true;
+        gameController.GameOver(isPlayerWin);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
