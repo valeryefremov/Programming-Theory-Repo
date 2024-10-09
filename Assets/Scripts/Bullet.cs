@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] float delay = 5f;
+    // ABSTRACTION
+    [SerializeField] private float delay = 5f;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(Destroy());
     }
 
-    // Update is called once per frame
-    IEnumerator Destroy()
+    private IEnumerator Destroy()
     {
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);

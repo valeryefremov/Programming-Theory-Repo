@@ -5,23 +5,24 @@ using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] GameObject projectilePrefab;
-    [SerializeField] int bulletsAmount;
-    [SerializeField] float bulletForce = 50f;
-    [SerializeField] float delay = 1f;
-    [SerializeField] Text bulletsAmountText;
+    // ABSTRACTION
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private int bulletsAmount;
+    [SerializeField] private float bulletForce = 50f;
+    [SerializeField] private float delay = 1f;
+    [SerializeField] private Text bulletsAmountText;
 
     private float time = 0f;
     private bool isReloaded = false;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         ShowBulletsText();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!isReloaded)
         {

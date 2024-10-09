@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE
 public class Player : Character
 {
-    [SerializeField] float mouseSensitivity = 100.0f; // Sensitivity of the mouse input
-    [SerializeField] Transform cam;
+    // ABSTRACTION
+    [SerializeField] private float mouseSensitivity = 100.0f; // Sensitivity of the mouse input
+    [SerializeField] private Transform cam;
 
+    // POLYMORPHISM
     protected override void Look()
     {
-        // Получение ввода от пользователя
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
         transform.Rotate(Vector3.up * mouseX);
     }
 
+    // POLYMORPHISM
     protected override void Shoot()
     {
         if (Input.GetMouseButton(0) && gun)
@@ -23,9 +26,9 @@ public class Player : Character
         }
     }
 
+    // POLYMORPHISM
     protected override void Move()
     {
-        // Получение ввода от пользователя
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -34,6 +37,7 @@ public class Player : Character
         rb.AddForce(direction * speed);
     }
 
+    // POLYMORPHISM
     protected override void Death()
     {
         bool isPlayerWin = false;

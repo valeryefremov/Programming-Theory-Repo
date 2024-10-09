@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE
 public class Enemy : Character
 {
-    [SerializeField] EnemyWaypoints enemyWaypoints;
+    // ABSTRACTION
+    [SerializeField] private EnemyWaypoints enemyWaypoints;
 
     private Transform player;
     private float timeToShoot;
@@ -15,11 +17,13 @@ public class Enemy : Character
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    // POLYMORPHISM
     protected override void Look()
     {
         transform.LookAt(player);
     }
 
+    // POLYMORPHISM
     protected override void Shoot()
     {
         if (timeToShoot <= 0f)
@@ -33,6 +37,7 @@ public class Enemy : Character
         }
     }
 
+    // POLYMORPHISM
     protected override void Move()
     {
         Vector3 direction = Vector3.zero;
@@ -45,6 +50,7 @@ public class Enemy : Character
         rb.AddForce(direction * speed);
     }
 
+    // POLYMORPHISM
     protected override void Death()
     {
         bool isPlayerWin = true;

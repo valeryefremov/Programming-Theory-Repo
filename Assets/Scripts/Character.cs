@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
+    // ABSTRACTION
     [SerializeField] private float maxHealth;
     [SerializeField] private Image healthBar;
-    [SerializeField] protected float speed = 1.0f; // Скорость перемещения
+    [SerializeField] protected float speed = 1.0f;
     [SerializeField] protected Gun gun;
 
     private float health;
@@ -97,7 +98,8 @@ public class Character : MonoBehaviour
         }
     }
 
-    void ShowHealth()
+    // POLYMORPHISM
+    private void ShowHealth()
     {
         if (healthBar)
         {
@@ -107,7 +109,8 @@ public class Character : MonoBehaviour
         }
     }
 
-    void ShowHealth(float amount)
+    // POLYMORPHISM
+    private void ShowHealth(float amount)
     {
         if (healthBar)
         {

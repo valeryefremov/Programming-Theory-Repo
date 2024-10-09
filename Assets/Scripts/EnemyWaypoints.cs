@@ -4,23 +4,10 @@ using UnityEngine;
 
 public class EnemyWaypoints : MonoBehaviour
 {
-    [SerializeField] List<Transform> waypoints;
-
-    //public List<Transform> Waypoints { get { return waypoints; }}
+    // ABSTRACTION
+    [SerializeField] private List<Transform> waypoints;
 
     private int currentWaypointNum = 0;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public Transform GetCurrentWaypoint()
     {

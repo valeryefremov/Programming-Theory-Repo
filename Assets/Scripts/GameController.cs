@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    // ENCAPSULATION
     public bool IsGameOver { get; private set; }
 
-    [SerializeField] GameObject gameOverScreen;
-    [SerializeField] Text messageText;
-    [SerializeField] Button restartButton;
-    [SerializeField] Button menuButton;
+    // ABSTRACTION
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private Text messageText;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button menuButton;
 
     private void Start()
     {
@@ -37,12 +39,12 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void RestartScene()
+    private void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void MenuScene()
+    private void MenuScene()
     {
         SceneManager.LoadScene(0);
     }
