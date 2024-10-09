@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Gun : MonoBehaviour
     [SerializeField] int bulletsAmount;
     [SerializeField] float bulletForce = 50f;
     [SerializeField] float delay = 1f;
+    [SerializeField] Text bulletsAmountText;
 
     private float time = 0f;
     private bool isReloaded = false;
@@ -15,7 +17,7 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        ShowBulletsText();
     }
 
     // Update is called once per frame
@@ -49,6 +51,7 @@ public class Gun : MonoBehaviour
         GameObject bullet = Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
         Vector3 localForward = transform.TransformDirection(Vector3.forward);
         bullet.GetComponent<Rigidbody>().AddForce(localForward * bulletForce, ForceMode.Impulse);
+        ShowBulletsText();
     }
 
     private void Reload()
@@ -61,6 +64,14 @@ public class Gun : MonoBehaviour
         else
         {
             time -= Time.deltaTime;
+        }
+    }
+
+    private void ShowBulletsText()
+    {
+        if (bulletsAmountText)
+        {
+            bulletsAmountText.text = "Bullets: " + bulletsAmount;
         }
     }
 }

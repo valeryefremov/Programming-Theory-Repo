@@ -99,15 +99,21 @@ public class Character : MonoBehaviour
 
     void ShowHealth()
     {
-        Vector3 tmp = healthBar.rectTransform.localScale;
-        tmp.x = health / maxHealth;
-        healthBar.rectTransform.localScale = tmp;
+        if (healthBar)
+        {
+            Vector3 tmp = healthBar.rectTransform.localScale;
+            tmp.x = health / maxHealth;
+            healthBar.rectTransform.localScale = tmp;
+        }
     }
 
     void ShowHealth(float amount)
     {
-        Vector3 tmp = healthBar.rectTransform.localScale;
-        tmp.x = amount;
-        healthBar.rectTransform.localScale = tmp;
+        if (healthBar)
+        {
+            Vector3 tmp = healthBar.rectTransform.localScale;
+            tmp.x = amount;
+            healthBar.rectTransform.localScale = tmp;
+        }
     }
 }

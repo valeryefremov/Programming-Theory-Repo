@@ -10,6 +10,15 @@ public class GameController : MonoBehaviour
 
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] Text messageText;
+    [SerializeField] Button restartButton;
+    [SerializeField] Button menuButton;
+
+    private void Start()
+    {
+        restartButton.onClick.AddListener(RestartScene);
+        menuButton.onClick.AddListener(MenuScene);
+        gameOverScreen.SetActive(false);
+    }
 
     public void GameOver(bool isPlayerWin)
     {
@@ -31,5 +40,10 @@ public class GameController : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void MenuScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }
